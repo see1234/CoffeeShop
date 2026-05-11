@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина | Coffeshop</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header class="topbar">
+    <div>
+        <p class="brand">Coffeshop</p>
+        <h1>Ваша корзина</h1>
+    </div>
+    <div class="topbar-actions">
+        <a class="cart-link" th:href="@{/}">В меню</a>
+        <form method="post" th:action="@{/logout}">
+            <button class="secondary" type="submit">Выйти</button>
+        </form>
+    </div>
+</header>
+
+<main class="content">
+    <div class="notice success" th:if="${param.success}">
+        Заказ оформлен. Спасибо, что выбрали Coffeshop.
+    </div>
+
+    <section class="cart-layout">
+        <div class="cart-items">
+            <article class="cart-item" th:each="item : ${items}">
+                <div>
+                    <h3 th:text="${item.name}">Напиток</h3>
+                    <p th:text="${item.quantity + ' шт. x ' + item.price + ' ₽'}">1 шт.</p>
+                </div>
+                <strong th:text="${item.lineTotal + ' ₽'}">0 ₽</strong>
+            </article>
+            <p th:if="${#lists.isEmpty(items)}">Корзина пока пуста. Добавьте что-нибудь из меню.</p>
+        </div>
+
+        <aside class="summary">
+            <h2>Итого</h2>
+            <p class="total" th:text="${total + ' ₽'}">0 ₽</p>
+            <form method="post" th:action="@{/cart/checkout}">
+                <button type="submit" th:disabled="${#lists.isEmpty(items)}">Оформить заказ</button>
+            </form>
+        </aside>
+    </section>
+</main>
+</body>
+</html>

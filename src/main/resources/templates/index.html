@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffeshop</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body>
+<header class="topbar">
+    <div>
+        <p class="brand">Coffeshop</p>
+        <h1>Авторская кофейня с удобным онлайн-заказом</h1>
+    </div>
+    <div class="topbar-actions">
+        <a class="cart-link" th:href="@{/cart}">Корзина (<span th:text="${globalCartCount}">0</span>)</a>
+        <form method="post" th:action="@{/logout}">
+            <button class="secondary" type="submit">Выйти</button>
+        </form>
+    </div>
+</header>
+
+<main class="content">
+    <section class="hero">
+        <div>
+            <p class="eyebrow">Spring Boot • Security • SQLite</p>
+            <h2>Выберите зерно, напиток и десерт в одном интерфейсе</h2>
+            <p>Пользовательский аккаунт хранится в SQLite, приватные страницы защищены авторизацией, а корзина живет внутри сессии.</p>
+        </div>
+    </section>
+
+    <section class="grid">
+        <article class="card" th:each="product : ${products}">
+            <span class="category" th:text="${product.category}">Категория</span>
+            <h3 th:text="${product.name}">Название</h3>
+            <p th:text="${product.description}">Описание</p>
+            <div class="card-footer">
+                <strong th:text="${product.price + ' ₽'}">0 ₽</strong>
+                <form method="post" th:action="@{'/cart/add/' + ${product.id}}">
+                    <button type="submit">В корзину</button>
+                </form>
+            </div>
+        </article>
+    </section>
+</main>
+</body>
+</html>

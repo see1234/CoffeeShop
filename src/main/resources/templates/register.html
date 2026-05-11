@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация | Coffeshop</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="auth-page">
+<div class="auth-card">
+    <h1>Создать аккаунт</h1>
+    <p class="subtitle">Создайте аккаунт, чтобы хранить доступ к личной корзине и заказам</p>
+
+    <form method="post" th:action="@{/register}" th:object="${registerRequest}">
+        <label>
+            Логин
+            <input type="text" th:field="*{username}" placeholder="coffee_lover">
+            <small class="field-error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></small>
+        </label>
+        <label>
+            Пароль
+            <input type="password" th:field="*{password}" placeholder="не короче 6 символов">
+            <small class="field-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></small>
+        </label>
+        <button type="submit">Зарегистрироваться</button>
+    </form>
+
+    <p class="switch-link">Уже есть аккаунт? <a th:href="@{/login}">Войти</a></p>
+</div>
+</body>
+</html>

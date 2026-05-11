@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход | Coffeshop</title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+<body class="auth-page">
+<div class="auth-card">
+    <h1>Coffeshop</h1>
+    <p class="subtitle">Войдите, чтобы собрать заказ и вернуться к любимым напиткам</p>
+
+    <div class="notice success" th:if="${param.registered}">
+        Регистрация прошла успешно. Теперь войдите в аккаунт.
+    </div>
+    <div class="notice success" th:if="${param.logout}">
+        Вы вышли из аккаунта.
+    </div>
+    <div class="notice error" th:if="${param.error}">
+        Неверный логин или пароль.
+    </div>
+
+    <form method="post" th:action="@{/login}">
+        <label>
+            Логин
+            <input type="text" name="username" placeholder="manager">
+        </label>
+        <label>
+            Пароль
+            <input type="password" name="password" placeholder="coffee123">
+        </label>
+        <button type="submit">Войти</button>
+    </form>
+
+    <p class="hint">Стартовый аккаунт: <b>manager</b> / <b>coffee123</b></p>
+    <p class="switch-link">Нет аккаунта? <a th:href="@{/register}">Зарегистрироваться</a></p>
+</div>
+</body>
+</html>
